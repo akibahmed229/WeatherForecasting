@@ -30,9 +30,15 @@ BASE_URL = "https://api.openweathermap.org/data/2.5/"  # for making api request
 def get_current_weather(city):
     url = f"{BASE_URL}weather?q={city}&appid={API_KEY}&units=metric"  # construct the API request URL
     response = requests.get(url)  # send the get request to API
-    data = response.json()
+    data = response.json()  # parse the response JSON
 
-    # return a dictionary
+    # Check for errors in the API response
+    if response.status_code != 200 or "name" not in data:
+        # Log the issue or return an error message to the user
+        print(f"Error fetching weather data: {data.get('message', 'Unknown error')}")
+        return None
+
+    # If everything is fine, extract the relevant data
     return {
         "city": data["name"],
         "current_temp": round(data["main"]["temp"]),
@@ -166,6 +172,12 @@ def weather_view(request):
 
         # Fetch the current weather for the entered city
         current_weather = get_current_weather(city)
+
+        # Check if the current_weather data is None due to an API error
+        if current_weather is None:
+            return HttpResponse(
+                "Error: Unable to fetch weather data. Please try again."
+            )
 
         # Load historical weather data from a CSV file
         csv_path = os.path.join(os.path.dirname(__file__), "../data/weather.csv")

@@ -12,7 +12,7 @@
 
 /* Body Styles */
 body {
-  background-color: #080808;
+  background-image: url("../img/main-blur.png");
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,8 +27,8 @@ main {
   justify-content: space-between;
   align-items: flex-end;
   margin: 0 auto;
-  width: fit-content;
-  height: 635px;
+  width: 90%;
+  height: 90%;
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 25px;

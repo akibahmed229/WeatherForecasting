@@ -23,7 +23,7 @@
       <!-- Side Bar -->
       <section class="side-container">
         <!-- Search Bar -->
-        <form method="POST">
+        <form method="POST" id="searchForm">
           {% csrf_token %}
           <div class="search-container">
             <div
@@ -36,11 +36,12 @@
             <input
               type="text"
               name="city"
+              id="cityInput"
               class="geo-input"
               placeholder="ex., Dhaka, Sylet"
               value="{{ location }}"
             />
-            <button type="button" class="search-button">
+            <button type="submit" class="search-button">
               <div style="width: 25px; height: 25px; color: white">
                 <i class="bi bi-search"></i>
               </div>

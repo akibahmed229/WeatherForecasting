@@ -15,6 +15,7 @@
     devShells.${system}.default = pkgs.mkShell {
       name = "weather-forecasting";
 
+      # Add packages to the shell environment
       packages =
         (with pkgs; [
           stdenv.cc.cc.lib
@@ -48,6 +49,7 @@
           django
         ]);
 
+      # Add environment variables to the shell environment
       env = {
         LD_LIBRARY_PATH =
           pkgs.lib.makeLibraryPath [
@@ -57,6 +59,7 @@
         TF_ENABLE_ONEDNN_OPTS = 0;
       };
 
+      # Add shell hooks to the shell environment to be executed on entering the shell
       shellHook = ''
         echo "Entering devShell for ${system}";
 
