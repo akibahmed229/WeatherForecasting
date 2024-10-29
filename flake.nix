@@ -1,5 +1,5 @@
 {
-  description = "Dev Environment for AL\ML\DS\NLP";
+  description = "Dev Environment for Weather Forecasting";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
@@ -13,7 +13,7 @@
     };
   in {
     devShells.${system}.default = pkgs.mkShell {
-      name = "development-of-intelligent";
+      name = "weather-forecasting";
 
       packages =
         (with pkgs; [
@@ -28,7 +28,6 @@
           libxslt
           libzip
           zlib
-          poetry
           python311
         ])
         ++ (with pkgs.python311Packages; [
@@ -38,20 +37,15 @@
           jupyterlab
           pyzmq
           venvShellHook
-          pip
           numpy
           pandas
-          pandas-datareader
           matplotlib
           requests
           seaborn
           openpyxl
-          cufflinks
           plotly
           scikit-learn
-          imbalanced-learn
-          tensorflow
-          keras
+          django
         ]);
 
       env = {

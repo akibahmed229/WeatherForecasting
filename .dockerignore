@@ -1,3 +1,8 @@
+logs/
+.git
+*.md
+.cache
+
 venv
 .venv 
 .direnv 
