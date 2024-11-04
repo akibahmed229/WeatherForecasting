@@ -13,10 +13,8 @@ from sklearn.model_selection import (
 from sklearn.preprocessing import (
     LabelEncoder,
 )  # TO convert catogerical data into numericals values
-from sklearn.ensemble import (
-    RandomForestClassifier,
-    RandomForestRegressor,
-)  # Models for classification and regression tasks
+from sklearn.ensemble import RandomForestRegressor  # Models for regression tasks
+from sklearn.linear_model import LinearRegression  # Model for linear regression
 from sklearn.metrics import (
     mean_squared_error,
 )  # To measure the  accuracy of out prediction
@@ -91,15 +89,16 @@ def train_rain_model(X, y):
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42
     )
-    model = RandomForestClassifier(n_estimators=100, random_state=42)
-    model.fit(X_train, y_train)  # train the model
-
-    y_pred = model.predict(X_test)  # to make predictions on test set
+    model_lr = LinearRegression()
+    model_lr.fit(X_train, y_train)
+    y_pred_lr = (model_lr.predict(X_test) > 0.5).astype(
+        int
+    )  # Convert to binary predictions
 
     print("Mean Square Error for Rain Model")
-    print(mean_squared_error(y_test, y_pred))
+    print(mean_squared_error(y_test, y_pred_lr))
 
-    return model
+    return model_lr
 
 
 # 5.Prepare regression data
@@ -308,6 +307,5 @@ def weather_view(request):
         "hum4": f"{round(hum4, 1)}",
         "hum5": f"{round(hum5, 1)}",
     }
-
 
     return render(request, "weather.html", context)
